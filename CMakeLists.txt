@@ -135,7 +135,7 @@ target_include_directories(
         ${CMAKE_SOURCE_DIR}/src/
 
 )
-target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Widgets Qt6::Core5Compat)
+target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Core5Compat)
 if (TARGET Qt6Keychain::Qt6Keychain)
     target_link_libraries(${PROJECT_NAME} PRIVATE Qt6Keychain::Qt6Keychain)
 else ()
