@@ -9,7 +9,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ windows-latest, ubuntu-latest ]
+        os: [ windows-latest ]
     env:
       BUILD_TOOLS_PATH: C:\apps\build-tools\
     steps:
@@ -24,13 +24,6 @@ jobs:
         if: startsWith(matrix.os, 'windows')
         run: git clone https://git.anotherfoxguy.com/AnotherFoxGuy/build-tools.git %BUILD_TOOLS_PATH%
         shell: cmd
-
-      - name: Install dependencies (Ubuntu)
-        if: startsWith(matrix.os, 'ubuntu')
-        run: |
-          sudo apt-get update
-          sudo apt-get -y install ninja-build
-          curl "https://git.anotherfoxguy.com/AnotherFoxGuy/install-scripts/raw/branch/main/install-conan.sh" | sudo bash
 
       - name: Enable Developer Command Prompt
         uses: ilammy/msvc-dev-cmd@v1.12.1
@@ -58,15 +51,6 @@ jobs:
           conan remote add ror-conan https://git.anotherfoxguy.com/api/packages/rorbot/conan -f
           conan install . -b missing -pr:b=tools/conan-profiles/vs-22-release-ninja -pr=tools/conan-profiles/vs-22-release-ninja
         shell: cmd
-
-      - name:  Run Conan (Linux)
-        if: startsWith(matrix.os, 'ubuntu')
-        run: |
-          conan profile detect --force
-          echo "tools.system.package_manager:mode = install" > ~/.conan2/global.conf
-          echo "tools.system.package_manager:sudo = True" >> ~/.conan2/global.conf
-          conan remote add ror-conan https://git.anotherfoxguy.com/api/packages/rorbot/conan -f
-          conan install . -s build_type=Release -b missing -pr:b=default -c tools.cmake.cmaketoolchain:generator="Ninja"
 
       - name: Build
         run: |
