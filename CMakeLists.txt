@@ -52,7 +52,7 @@ set(SOURCES
         src/FileTableView.cpp
         src/LoggedProcess.cpp
         src/BrowserWidget.cpp
-        src/CustomWebView.cpp
+#        src/CustomWebView.cpp
         src/Fossil.cpp
         src/Workspace.cpp
         src/SearchBox.cpp
@@ -72,7 +72,7 @@ set(HEADERS
         src/FileTableView.h
         src/LoggedProcess.h
         src/BrowserWidget.h
-        src/CustomWebView.h
+#        src/CustomWebView.h
         src/Fossil.h
         src/Workspace.h
         src/SearchBox.h
