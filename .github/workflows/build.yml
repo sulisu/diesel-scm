@@ -46,7 +46,7 @@ jobs:
         with:
           cache: 'true'
           version: 6.4.0
-          modules: qt5compat qtpositioning
+          modules: qt5compat qtpositioning qtwidgets
           dir: "${{ github.workspace }}/qt/"
 
       - name: Add conan remote
