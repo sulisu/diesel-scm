@@ -70,6 +70,7 @@ jobs:
 
       - name: Build
         run: |
+          cmake --build D:/a/diesel-scm/diesel-scm/ --target clean
           cmake --preset conan-release -DCMAKE_INSTALL_PREFIX=redist
           ninja
 
