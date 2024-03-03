@@ -34,7 +34,6 @@ set(FORMS
         ui/SettingsDialog.ui
         ui/FslSettingsDialog.ui
         ui/CloneDialog.ui
-        ui/BrowserWidget.ui
         ui/RevisionDialog.ui
         ui/RemoteDialog.ui
         ui/AboutDialog.ui)
@@ -51,7 +50,6 @@ set(SOURCES
         src/Utils.cpp
         src/FileTableView.cpp
         src/LoggedProcess.cpp
-        src/BrowserWidget.cpp
         src/Fossil.cpp
         src/Workspace.cpp
         src/SearchBox.cpp
@@ -70,7 +68,6 @@ set(HEADERS
         src/Utils.h
         src/FileTableView.h
         src/LoggedProcess.h
-        src/BrowserWidget.h
         src/Fossil.h
         src/Workspace.h
         src/SearchBox.h
