@@ -24,7 +24,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOUIC_SEARCH_PATHS "${CMAKE_SOURCE_DIR}/ui")
 
-find_package(Qt6 COMPONENTS Core Gui WebEngineCore WebEngineWidgets Core5Compat  REQUIRED)
+find_package(Qt6 COMPONENTS Core Gui Core5Compat  REQUIRED)
 find_package(Qt6Keychain REQUIRED)
 
 set(FORMS
@@ -52,7 +52,6 @@ set(SOURCES
         src/FileTableView.cpp
         src/LoggedProcess.cpp
         src/BrowserWidget.cpp
-        src/CustomWebView.cpp
         src/Fossil.cpp
         src/Workspace.cpp
         src/SearchBox.cpp
@@ -72,7 +71,6 @@ set(HEADERS
         src/FileTableView.h
         src/LoggedProcess.h
         src/BrowserWidget.h
-        src/CustomWebView.h
         src/Fossil.h
         src/Workspace.h
         src/SearchBox.h
@@ -137,7 +135,7 @@ target_include_directories(
         ${CMAKE_SOURCE_DIR}/src/
 
 )
-target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Widgets Qt6::WebEngineCore Qt6::WebEngineWidgets Qt6::Core5Compat)
+target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Widgets Qt6::Core5Compat)
 if (TARGET Qt6Keychain::Qt6Keychain)
     target_link_libraries(${PROJECT_NAME} PRIVATE Qt6Keychain::Qt6Keychain)
 else ()
