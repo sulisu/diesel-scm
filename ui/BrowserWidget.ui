@@ -46,9 +46,6 @@
    <item>
     <widget class="QLineEdit" name="txtUrl"/>
    </item>
-   <item>
-    <widget class="CustomWebView" name="webView" native="true"/>
-   </item>
   </layout>
   <action name="actionBrowserBack">
    <property name="icon">
@@ -97,12 +94,6 @@
   </action>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>CustomWebView</class>
-   <extends>QWidget</extends>
-   <header>CustomWebView.h</header>
-   <container>1</container>
-  </customwidget>
  </customwidgets>
  <resources>
   <include location="../rsrc/resources.qrc"/>
