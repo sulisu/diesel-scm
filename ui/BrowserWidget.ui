@@ -97,12 +97,6 @@
   </action>
  </widget>
  <customwidgets>
-#  <customwidget>
-#   <class>CustomWebView</class>
-#   <extends>QWidget</extends>
-#   <header>CustomWebView.h</header>
-#   <container>1</container>
-#  </customwidget>
  </customwidgets>
  <resources>
   <include location="../rsrc/resources.qrc"/>
