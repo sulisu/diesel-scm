@@ -97,6 +97,7 @@
   </action>
  </widget>
  <customwidgets>
+
  </customwidgets>
  <resources>
   <include location="../rsrc/resources.qrc"/>
