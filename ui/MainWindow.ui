@@ -206,9 +206,6 @@
          <property name="bottomMargin">
           <number>0</number>
          </property>
-         <item>
-          <widget class="BrowserWidget" name="webView" native="true"/>
-         </item>
         </layout>
        </widget>
       </widget>
@@ -1082,12 +1079,6 @@
    <class>FileTableView</class>
    <extends>QTableView</extends>
    <header>FileTableView.h</header>
-  </customwidget>
-  <customwidget>
-   <class>BrowserWidget</class>
-   <extends>QWidget</extends>
-   <header>BrowserWidget.h</header>
-   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources>
