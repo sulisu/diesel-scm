@@ -16,7 +16,7 @@ jobs:
       - run: echo $env:BUILD_TOOLS_PATH | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
         if: startsWith(matrix.os, 'windows')
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           submodules: true
 
@@ -29,55 +29,52 @@ jobs:
         if: startsWith(matrix.os, 'ubuntu')
         run: |
           sudo apt-get update
-          sudo apt-get -y install ninja-build
-          curl "https://git.anotherfoxguy.com/AnotherFoxGuy/install-scripts/raw/branch/main/install-conan.sh" | sudo bash
+          sudo apt-get -y install ninja-build \
+            libsecret-1-dev \
+            qt6-base-dev \
+            qt6-webengine-dev \
+            qt6-webview-dev \
+            qtkeychain-qt6-dev \
+            qt6-5compat-dev \
+            qt6-l10n-tools
 
       - name: Enable Developer Command Prompt
-        uses: ilammy/msvc-dev-cmd@v1.12.1
+        uses: ilammy/msvc-dev-cmd@v1
 
       - name: Cache conan packages
-        uses: actions/cache@v3
+        if: startsWith(matrix.os, 'windows')
+        uses: actions/cache@v5
         with:
           key: conan-${{ runner.os }}-${{ hashFiles('conanfile.py') }}
           path: ~/.conan2/
 
       - name: Install Qt
         uses: jurplel/install-qt-action@v3
+        if: startsWith(matrix.os, 'windows')
         with:
           cache: 'true'
-          version: 6.4.0
+          version: 6.7.3
           modules: qt5compat qtpositioning qtwebchannel qtwebengine qtwebview
           dir: "${{ github.workspace }}/qt/"
 
-      - name: Add conan remote
-        run: conan remote add ror-conan https://git.anotherfoxguy.com/api/packages/rorbot/conan -f
-
-      - name: Run Conan (Windows)
+      - name: Configure (Windows)
         if: startsWith(matrix.os, 'windows')
         run: |
           conan remote add ror-conan https://git.anotherfoxguy.com/api/packages/rorbot/conan -f
-          conan install . -b missing -pr:b=tools/conan-profiles/vs-22-release-ninja -pr=tools/conan-profiles/vs-22-release-ninja
-        shell: cmd
+          cmake . -GNinja -DCMAKE_INSTALL_PREFIX=redist -DCMAKE_BUILD_TYPE=Release -Bbuild -DCMAKE_PROJECT_TOP_LEVEL_INCLUDES="cmake/conan_provider.cmake"
 
-      - name:  Run Conan (Linux)
+      - name: Configure (Ubuntu)
         if: startsWith(matrix.os, 'ubuntu')
         run: |
-          conan profile detect --force
-          echo "tools.system.package_manager:mode = install" > ~/.conan2/global.conf
-          echo "tools.system.package_manager:sudo = True" >> ~/.conan2/global.conf
-          conan remote add ror-conan https://git.anotherfoxguy.com/api/packages/rorbot/conan -f
-          conan install . -s build_type=Release -b missing -pr:b=default -c tools.cmake.cmaketoolchain:generator="Ninja"
-
-      - name: Build
-        run: |
-          cmake --preset conan-release -DCMAKE_INSTALL_PREFIX=redist
-          ninja
+          cmake . -GNinja -DCMAKE_INSTALL_PREFIX=redist -DCMAKE_BUILD_TYPE=Release -Bbuild
 
       - name: Install
-        run: ninja install
+        run: |
+          cd build
+          ninja install
 
       - name: Upload redist folder
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v6
         with:
           name: diesel-${{ runner.os }}
           path: redist
