@@ -1226,8 +1226,7 @@ void MainWindow::fossilBrowse(const QString &fossilUrl)
 
     if (use_internal)
     {
-        ui->webView->load(url);
-        ui->tabWidget->setCurrentIndex(TAB_BROWSER);
+        QDesktopServices::openUrl(url);
     }
     else
         QDesktopServices::openUrl(url);
@@ -1421,7 +1420,6 @@ bool MainWindow::startUI()
 void MainWindow::stopUI()
 {
     getWorkspace().fossil().stopUI();
-    ui->webView->load(QUrl("about:blank"));
     ui->actionFossilUI->setChecked(false);
 }
 
